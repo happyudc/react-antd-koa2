@@ -1,23 +1,46 @@
 /**
  * Created by happyu on 2017/10/9.
  */
+import 'babel-polyfill'
 import React from 'react'
-import { Form, Input, Tooltip, Icon, Checkbox, Button } from 'antd';
+import { Form, Input, Tooltip, Icon, Checkbox, Button, message } from 'antd';
+import { registerApi } from '../../api/register'
 const FormItem = Form.Item;
-import styles from './register.less'
+import './register.less'
 class Register extends React.Component {
-    state = {
-        confirmDirty: false,
-        autoCompleteResult: [],
-    };
-    handleSubmit = (e) => {
+    constructor(props) {
+        super(props);
+        this.state = {
+            confirmDirty: false,
+            autoCompleteResult: [],
+        };
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    async handleSubmit(e) {
         e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
+        let values = await this.getValidateFieldsAndScroll();
+        if(values) {
+            let result = await registerApi(values);
+            if(result && result.success) {
+                message.success("注册成功！")
+            } else {
+                message.error(result.message)
             }
-        });
+        }
     };
+
+    // 获取注册表单数据
+    getValidateFieldsAndScroll = () => {
+        return new Promise((resolve, reject) => {
+            this.props.form.validateFieldsAndScroll((err, values) => {
+                if(!err) {
+                    resolve(values)
+                }
+            })
+        })
+    }
+
     handleConfirmBlur = (e) => {
         const value = e.target.value;
         this.setState({ confirmDirty: this.state.confirmDirty || !!value });

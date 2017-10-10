@@ -4,9 +4,9 @@
 import 'babel-polyfill';
 import React from 'react'
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd'
-import { signInApi } from '../api/signIn'
+import { signInApi } from '../../api/signIn'
 const FormItem = Form.Item;
-import styles from './sigin.less'
+import './sigin.less'
 class SignIn extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -39,7 +39,7 @@ class SignIn extends React.PureComponent {
     };
 
     render() {
-        const { getFieldDecorator } = this.props.form
+        const { getFieldDecorator } = this.props.form;
         return(
             <Form onSubmit={this.handleSubmit} className="login-form">
                 <FormItem>
