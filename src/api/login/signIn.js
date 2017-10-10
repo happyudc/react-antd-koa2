@@ -2,7 +2,7 @@
  * Created by happyu on 2017/10/9.
  */
 import 'babel-polyfill';
-import Request from '../utils/request'
+import Request from '../../utils/request'
 
 /**
  * 用户登陆api

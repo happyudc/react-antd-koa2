@@ -56,7 +56,7 @@ module.exports = {
             data: null
         };
         let userInfo = {
-            username: formData.userName,
+            username: formData.nickname,
             password: formData.password,
             email: formData.email,
             create_time: new Date()
@@ -65,11 +65,11 @@ module.exports = {
         if(userResult) {
             result.success = true
         } else {
-            result.message = "注册失败!"
+            result.message = "注册失败!";
             result.code = "REGISTER_ERROR"
         }
         ctx.body = result
     }
 
 
-}
+};

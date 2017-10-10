@@ -4,7 +4,7 @@
 import 'babel-polyfill';
 import React from 'react'
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd'
-import { signInApi } from '../../api/signIn'
+import { signInApi } from '../../api/login/signIn'
 const FormItem = Form.Item;
 import './sigin.less'
 class SignIn extends React.PureComponent {
@@ -12,6 +12,7 @@ class SignIn extends React.PureComponent {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this)
     }
+    // 请求后端，登陆验证
     async handleSubmit(e) {
         e.preventDefault();
         let values = await this.getFormValues();
@@ -27,6 +28,7 @@ class SignIn extends React.PureComponent {
         }
     };
 
+    // 获取用户输入信息
     getFormValues = () => {
         return new Promise((resolve, reject) => {
             this.props.form.validateFields((err, values) => {

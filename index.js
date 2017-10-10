@@ -3,5 +3,5 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './src/login/SignIn';
+import App from './src/containers/home/Home';
 ReactDOM.render(<App/>, document.getElementById('root'));

@@ -67,21 +67,16 @@ function fetchEvent( options ) {
             _error( err )
         })
     } else {
-        // return window.fetch(_url, fetchParams)
-        // .then((response) => {
-        //   return response.json();
-        // })
-
-        return new Promise(( resolve, reject ) => {
+        return new Promise((resolve, reject) => {
             fetch(_url, fetchParams)
                 .then((response) => {
                     return response.json();
-                }).then( ( result ) => {
-                resolve( result )
-            }).catch( ( err ) => {
-                reject( err )
+                }).then((result) => {
+                resolve(result)
+            }).catch((err) => {
+                reject(err)
             })
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err)
         })
     }

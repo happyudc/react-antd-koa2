@@ -4,7 +4,7 @@
 import 'babel-polyfill'
 import React from 'react'
 import { Form, Input, Tooltip, Icon, Checkbox, Button, message } from 'antd';
-import { registerApi } from '../../api/register'
+import { registerApi } from '../../api/login/register'
 const FormItem = Form.Item;
 import './register.less'
 class Register extends React.Component {
