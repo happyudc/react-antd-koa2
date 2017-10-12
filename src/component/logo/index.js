@@ -2,7 +2,7 @@
  * Created by happyu on 2017/10/11.
  */
 import React from 'react'
-import './logo.less'
+import './index.less'
 const LOGO = "Happyu";
 class Logo extends React.PureComponent {
     render() {

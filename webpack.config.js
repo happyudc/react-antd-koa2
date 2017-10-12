@@ -11,7 +11,8 @@ module.exports = {
     },
     output: {
         filename: 'js/[name].js', // 打包输出文件的名称
-        path: path.resolve(__dirname, 'dist') // 打包输出文件的路径
+        path: path.resolve(__dirname, 'dist'), // 打包输出文件的路径
+        publicPath: '/'
     },
     module: {
         rules: [

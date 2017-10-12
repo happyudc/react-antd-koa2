@@ -22,4 +22,15 @@ const userPageApi = async (begin, offset) => {
     return result
 };
 
-export { userListApi, userPageApi }
+const userDeleteApi = async (id) => {
+    "use strict";
+    let result = Request.post({
+        url: '/api/user/delete.json',
+        data: {
+            id
+        }
+    });
+    return result
+};
+
+export { userListApi, userPageApi, userDeleteApi }

@@ -12,6 +12,7 @@ const cors = require('koa2-cors');
 
 const config = require('../config');
 const routers = require('./routers/index');
+const handleError = require('./exception/handleError');
 
 const app = new Koa();
 // 解决跨域问题
@@ -51,6 +52,8 @@ app.use(koaStatic(
 ));
 
 app.use(routers.routes()).use(routers.allowedMethods());
+
+app.on('error', handleError);
 
 app.listen(config.port, function () {
     console.log(`the server is running at port ${config.port}`)

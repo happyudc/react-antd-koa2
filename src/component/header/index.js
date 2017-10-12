@@ -1,10 +1,7 @@
-/**
- * Created by happyu on 2017/10/11.
- */
 import React from 'react'
 import { Menu, Icon} from 'antd'
 const SubMenu = Menu.SubMenu;
-import './header.less'
+import './index.less'
 class Header extends React.PureComponent {
     render() {
         return(

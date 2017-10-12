@@ -43,6 +43,7 @@ class SignIn extends React.PureComponent {
     };
 
     render() {
+        console.log(this.props)
         const { getFieldDecorator } = this.props.form;
         return(
             <Form onSubmit={this.handleSubmit} className="login-form">

@@ -74,6 +74,16 @@ const user = {
         } else {
             return false
         }
+    },
+
+    async findUserById(id) {
+        "use strict";
+        let result = await dbUtils.selectById('userInfo', id);
+        if(Array.isArray(result) && result.length > 0) {
+            return result[0]
+        } else {
+            return null
+        }
     }
 };
 

@@ -3,8 +3,8 @@
  */
 import SignIn from '../containers/login/SignIn'
 import Register from '../containers/login/Register'
-import Home from '../containers/home/Home'
-import UserList from '../containers/user/UserList'
+import Home from '../containers/user/index'
+import UserList from '../containers/user/user'
 const routes = [
     {
         path: '/',
@@ -22,7 +22,7 @@ const routes = [
         component: Home
     },
     {
-        path: '/userList',
+        path: '/user',
         exact: true,
         component: UserList
     }

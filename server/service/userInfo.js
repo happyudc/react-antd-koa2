@@ -52,7 +52,15 @@ const user = {
         "use strict";
         let result = await userModel.deleteById(id);
         return result
+    },
+
+    async findUserById(id) {
+        "use strict";
+        let result = await userModel.findUserById(id);
+        return result
     }
+
+
 };
 
 module.exports = user;
