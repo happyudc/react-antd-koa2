@@ -10,7 +10,7 @@ const MenuItem = Menu.Item;
 class LeftMenu extends React.PureComponent {
     render() {
         return(
-            <Menu theme="dark" mode="inline">
+            <Menu mode="inline" style={{ height: '100%'}}>
                 {menus.map((menu,index) =>
                     <SubMenu
                         key={menu.key}

@@ -34,6 +34,46 @@ const user = {
         } else {
             return false
         }
+    },
+
+    async selectAllUser() {
+        "use strict";
+        let result = await dbUtils.selectAll('userInfo');
+        if(Array.isArray(result) && result.length > 0) {
+            return result
+        } else {
+            return null
+        }
+    },
+
+    async selectUserByPage(begin, offset) {
+        "use strict";
+        let result = await dbUtils.selectByPage('userInfo', begin, offset);
+        if(Array.isArray(result) && result.length > 0) {
+            return result
+        } else {
+            return null
+        }
+    },
+
+    async getCount() {
+        "use strict";
+        let result = await dbUtils.count('userInfo');
+        if(Array.isArray(result) && result.length > 0) {
+            return result[0].count
+        } else {
+            return null
+        }
+    },
+
+    async deleteById(id) {
+        "use strict";
+        let result = await dbUtils.deleteData('userInfo', id);
+        if(result && result.affectedRows === 1) {
+            return true
+        } else {
+            return false
+        }
     }
 };
 

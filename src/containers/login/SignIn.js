@@ -4,6 +4,7 @@
 import 'babel-polyfill';
 import React from 'react'
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd'
+import { Link, withRouter } from 'react-router-dom'
 import { signInApi } from '../../api/login/signIn'
 const FormItem = Form.Item;
 import './sigin.less'
@@ -19,7 +20,8 @@ class SignIn extends React.PureComponent {
         if(values) {
             let result = await signInApi(values);
             if(result && result.success) {
-                message.success("登陆成功！")
+                message.success("登陆成功！");
+                this.props.history.push('/home')
             } else {
                 message.error(result.message)
             }
@@ -69,11 +71,11 @@ class SignIn extends React.PureComponent {
                     <Button type="primary" htmlType="submit" className="login-form-button">
                         Log in
                     </Button>
-                    Or <a href="">register now!</a>
+                    Or <a href=""><Link to="/register">register now!</Link></a>
                 </FormItem>
             </Form>
         )
     }
 }
 
-export default Form.create()(SignIn)
+export default withRouter(Form.create()(SignIn))

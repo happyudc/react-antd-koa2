@@ -1,18 +1,23 @@
 /**
  * Created by happyu on 2017/10/10.
  */
-const SidebarMenu = [
-    {
-        key: 'index',
-        name: '用户管理',
-        icon: 'user',
-        child: [
-            {
-                key: 'crud',
-                name: 'CRUD',
-                icon: 'edit'
-            }
-        ]
-    }
-];
-export default SidebarMenu
+const menuConfig = {
+    theme: 'dark',
+    mode: 'inline',
+    defaultSelectedKeys: ['user List'],
+    defaultOpenKeys: ['User'],
+    subMenu: [
+        {
+            key: 'User',
+            title: 'User',
+            icon: 'user',
+            menuItems: [
+                {
+                    name: 'user List',
+                    path: '/userList'
+                }
+            ]
+        }
+    ]
+}
+export default menuConfig

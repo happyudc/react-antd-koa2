@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
     entry: {
-        index: './index.js', // 配置入口文件
+        index: './src/index.js', // 配置入口文件
     },
     output: {
         filename: 'js/[name].js', // 打包输出文件的名称

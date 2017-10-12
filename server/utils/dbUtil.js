@@ -43,6 +43,35 @@ let selectById = function (table, id) {
 };
 
 /**
+ * 查询所有用户信息
+ * @param table
+ */
+let selectAll = function (table) {
+    let _sql = "select * from ??";
+    return query(_sql, [table])
+};
+
+/**
+ * 不带条件分页查询
+ * @param table 表名称
+ * @param begin 起始
+ * @param offset 偏移量
+ */
+let selectByPage = function (table, begin, offset) {
+    let _sql = "select * from ?? limit ?, ?";
+    return query(_sql, [table, begin, offset])
+};
+
+/**
+ * 查询总记录数
+ * @param table
+ */
+let count = function (table) {
+    let _sql = "select count(id) as count from ??";
+    return query(_sql, [table])
+};
+
+/**
  * 根据id查询指定列
  * @param table
  * @param columns 列名称
@@ -65,12 +94,27 @@ let selectColumnsById = function (table, columns, id) {
 let insert = function (table, values) {
     let _sql = "insert into ?? set ?"; // 该方式可以获取刚插入数据的主键id，同过insertedId获取
     return query(_sql, [table, values])
-}
+};
+
+/**
+ * 删除数据
+ * @param table
+ * @param value
+ */
+let deleteData = function (table, value) {
+    let _sql = "delete from ?? where id = ?";
+    return query(_sql, [table, value])
+};
+
 
 
 module.exports = {
     query,
+    selectAll,
     selectById,
     selectColumnsById,
-    insert
+    insert,
+    selectByPage,
+    count,
+    deleteData
 };
