@@ -69,6 +69,67 @@ module.exports = {
             result.code = "REGISTER_ERROR"
         }
         ctx.body = result
+    },
+
+    async getUserList(ctx) {
+        "use strict";
+        let result = {
+            success: false,
+            message: '',
+            code: '',
+            data: null
+        }
+        let userResult = await userInfoService.findAllUser();
+        if(userResult) {
+            result.success = true;
+            result.data = userResult
+        } else {
+            result.message = "查询用户失败！";
+            result.code = "FIND_USER_ERROR"
+        }
+        ctx.body = result
+    },
+
+    async getUserByPage(ctx) {
+        "use strict";
+        let result = {
+            success: false,
+            message: '',
+            code: '',
+            total: 0,
+            data: null
+        };
+        let reqData = ctx.request.body;
+        let begin = reqData.begin || 1, offset = reqData.offset || 5;
+        let userResult = await userInfoService.findUserByPage(parseInt(begin), parseInt(offset));
+        if(userResult.data) {
+            result.success = true;
+            result.data = userResult.data;
+            result.total = userResult.count
+        } else {
+            result.message = "分页查询用户失败！";
+            result.code = "PAGE_FIND_USER_ERROR"
+        }
+        ctx.body = result
+    },
+
+    async deleteUserById(ctx) {
+        "use strict";
+        let result = {
+            success: false,
+            message: '',
+            code: '',
+            data: null
+        };
+        let id = ctx.request.body.id;
+        let userResult = await userInfoService.deleteUserById(id);
+        if(userResult) {
+            result.success = true;
+        } else {
+            result.message = "删除用户失败！";
+            result.code = "DELETE_USER_ERROR"
+        }
+        ctx.body = result
     }
 
 
