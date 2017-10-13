@@ -14,7 +14,7 @@ const signInApi = async (userInfo) => {
     let result = await Request.post({
         url: '/api/user/login.json',
         data: userInfo
-    })
+    });
     return result
 };
 

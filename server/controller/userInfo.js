@@ -17,6 +17,7 @@ module.exports = {
         let userResult = await userInfoService.login(formData.userName, formData.password);
         if (userResult) {
             result.success = true;
+            result.code = 200;
             result.data = userResult
         } else {
             result.message = "用户名或密码错误!";
@@ -27,7 +28,7 @@ module.exports = {
         if (result.success) {
             let session = ctx.session;
             session.isLogin = true;
-            session.userName = result.username
+            session.userName = userResult.username
         }
         // 将用户名保存到cookies中
         if (result.success && formData.remember) {
@@ -63,7 +64,8 @@ module.exports = {
         };
         let userResult = await userInfoService.register(userInfo);
         if(userResult) {
-            result.success = true
+            result.success = true;
+            result.code = 200;
         } else {
             result.message = "注册失败!";
             result.code = "REGISTER_ERROR"
@@ -82,6 +84,7 @@ module.exports = {
         let userResult = await userInfoService.findAllUser();
         if(userResult) {
             result.success = true;
+            result.code = 200;
             result.data = userResult
         } else {
             result.message = "查询用户失败！";
@@ -104,6 +107,7 @@ module.exports = {
         let userResult = await userInfoService.findUserByPage(parseInt(begin), parseInt(offset));
         if(userResult.data) {
             result.success = true;
+            result.code = 200;
             result.data = userResult.data;
             result.total = userResult.count
         } else {
@@ -125,6 +129,7 @@ module.exports = {
         let userResult = await userInfoService.deleteUserById(id);
         if(userResult) {
             result.success = true;
+            result.code = 200;
         } else {
             result.message = "删除用户失败！";
             result.code = "DELETE_USER_ERROR"
@@ -144,11 +149,37 @@ module.exports = {
         let userResult = await userInfoService.findUserById(queryString.id);
         if(userResult) {
             result.success = true;
+            result.code = 200;
             result.data = userResult
         } else {
             result.message = "查询用单个户信息失败！";
             result.code = "FIND_ONE_USER_ERROR"
         }
         ctx.body = result
-    }
+    },
+
+    async logout(ctx) {
+        "use strict";
+        let result = {
+            success: false,
+            message: '',
+            code: '',
+            data: null
+        };
+        try {
+            let session = ctx.session;
+            // console.log("before session: ", session);
+            //清除session
+            session.isLogin = false;
+            session.userName = null;
+            // console.log("after session: ", session);
+            result.success = true;
+            result.code = 200;
+            ctx.body = result;
+        } catch (e) {
+            result.message = '登出失败！';
+            result.code = 'LOGOUT_FAILURE';
+            ctx.body = result;
+        }
+    },
 };

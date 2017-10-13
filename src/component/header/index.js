@@ -16,11 +16,12 @@ class Header extends React.PureComponent {
                     mode="horizontal"
                     className="header-menu"
                 >
-                    <SubMenu title={<span><Icon type="user" />Happyu</span>}>
-                        <Menu.Item key="setting:1">message</Menu.Item>
-                        <Menu.Item key="setting:2">forget</Menu.Item>
+                    {/*此处从localStorage中获取用户名，如果从父组件中的props中获取用户刷新页面值就不在了*/}
+                    <SubMenu title={<span><Icon type="user" />{this.props.user}</span>}>
+                        <Menu.Item key="setting:1"><span><Icon type="calendar"/><span>My orders</span></span></Menu.Item>
+                        <Menu.Item key="setting:2"><spap><Icon type="edit"/>Forget password</spap></Menu.Item>
                         <Menu.Divider/>
-                        <Menu.Item key="setting:3">Log out</Menu.Item>
+                        <Menu.Item key="setting:3"><span onClick={this.props.logout}><span><Icon type="logout"/></span>Log out</span></Menu.Item>
                     </SubMenu>
                 </Menu>
             </div>

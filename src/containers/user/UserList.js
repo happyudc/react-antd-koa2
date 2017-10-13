@@ -2,9 +2,10 @@
  * Created by happyu on 2017/10/11.
  */
 import React from 'react'
-import { Table, Popconfirm, message, Modal } from 'antd'
+import { Table, Popconfirm, message, Button } from 'antd'
 import { userPageApi, userDeleteApi } from '../../api/user/userList'
-
+import EditUser from './EditUser'
+// import { dateFormat } from '../../utils/dateFormat'
 class UserList extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -33,7 +34,7 @@ class UserList extends React.PureComponent {
         let result = await userPageApi(begin, offset);
         if(result && result.success) {
             this.setState({
-                data: result.data,
+                data: this.handleTableDataSource(result.data),
                 pagination: {
                     current: this.state.pagination.current,
                     defaultCurrent: 1,
@@ -42,6 +43,16 @@ class UserList extends React.PureComponent {
                 }
             })
         }
+    }
+
+    // 为Table中的添加key,防止出现警告
+    handleTableDataSource(data) {
+        let dataSource = [];
+        Array.isArray(data) && data.length > 0 && data.map((user, index) =>{
+            user.key = index;
+            dataSource.push(user)
+        });
+        return dataSource
     }
 
 
@@ -63,7 +74,6 @@ class UserList extends React.PureComponent {
     };
 
     handleEditUser(id) {
-        console.log(id);
         this.setState({
             visible: true,
         })
@@ -93,37 +103,34 @@ class UserList extends React.PureComponent {
             title: 'CreateTime',
             dataIndex: 'create_time',
             key: 'create_time',
+
         }, {
             title: 'Action',
             dataIndex: 'action',
             render: (text, record) => (
                 <span>
-            <a href="#">Action-{record.username}</a>
-            <span className="ant-divider"></span>
-            <Popconfirm title="确定要删除吗？"
-                        onConfirm={this.handleDeleteConfirm.bind(this,record.id)} //  利用bind()第二个参数实现传参
-                        okText="Yes" cancelText="No"
-            >
-                <a href="#">Delete</a>
-            </Popconfirm>
-            <span className="ant-divider"></span>
-            <a href="#" onClick={this.handleEditUser.bind(this, record.id)}>edit</a>
-        </span>
+                   {/* <a href="#">Action-{record.username}</a>
+                    <span className="ant-divider"></span>*/}
+                    <Popconfirm title="确定要删除吗？"
+                                onConfirm={this.handleDeleteConfirm.bind(this,record.id)} //  利用bind()第二个参数实现传参
+                                okText="Yes" cancelText="No"
+                    >
+                        <Button icon="delete">删除</Button>
+                    </Popconfirm>
+                    <span className="ant-divider"></span>
+                    <Button icon="edit" onClick={this.handleEditUser.bind(this, record.id)}>修改</Button>
+                </span>
             ),
         }];
         return(
             <div>
                 <Table columns={columns} dataSource={this.state.data}
                        pagination={this.state.pagination} onChange={this.handlePaginationChange} loading={false}/>
-                <Modal
-                    title="修改用户信息"
-                    visible={this.state.visible}
-                    confirmLoading={this.state.confirmLoading}
-                    onOk={this.handleUpdateOk}
-                    onCancel={this.handleUpdateCancel}
-                >
-                    修改用户信息
-                </Modal>
+                <EditUser title="修改用户信息"
+                          visible={this.state.visible}
+                          confirmLoading={this.state.confirmLoading}
+                          onOk={this.handleUpdateOk}
+                          onCancel={this.handleUpdateCancel}/>
             </div>
         )
     }
