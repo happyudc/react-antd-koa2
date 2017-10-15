@@ -19,11 +19,9 @@ class UserList extends React.PureComponent {
                 pageSize: 5
             },
             visible: false, // 控制修改模态框显示隐藏
-            confirmLoading: false
+            updateData: {}, // 当前修改的用户信息
         };
         this.getUserList = this.getUserList.bind(this);
-        this.handleUpdateOk = this.handleUpdateOk.bind(this);
-        this.handleUpdateCancel = this.handleUpdateCancel.bind(this)
     }
     componentDidMount() {
         const { current, pageSize } = this.state.pagination;
@@ -76,15 +74,17 @@ class UserList extends React.PureComponent {
     handleEditUser(id) {
         this.setState({
             visible: true,
+        });
+        this.state.data.filter((user) => {
+            return user.id === id ? this.setState({updateData: user}) : null
         })
     };
 
-    handleUpdateOk() {
-        this.setState({ confirmLoading: true })
+    handleUpdateCancel = () => {
+        this.setState({
+            visible: false,
+        });
     };
-    handleUpdateCancel() {
-        this.setState({ visible: false })
-    }
 
     render() {
         const columns = [{
@@ -126,11 +126,13 @@ class UserList extends React.PureComponent {
             <div>
                 <Table columns={columns} dataSource={this.state.data}
                        pagination={this.state.pagination} onChange={this.handlePaginationChange} loading={false}/>
-                <EditUser title="修改用户信息"
-                          visible={this.state.visible}
-                          confirmLoading={this.state.confirmLoading}
-                          onOk={this.handleUpdateOk}
-                          onCancel={this.handleUpdateCancel}/>
+                {this.state.visible
+                    ? <EditUser title="修改用户信息"
+                                user={this.state.updateData}
+                                handleUpdateCancel={this.handleUpdateCancel}
+                                visible={this.state.visible}/>
+                    : ''
+                }
             </div>
         )
     }

@@ -145,8 +145,8 @@ module.exports = {
             code: '',
             data: null
         };
-        let queryString = ctx.request.query;
-        let userResult = await userInfoService.findUserById(queryString.id);
+        let user = ctx.request.body;
+        let userResult = await userInfoService.updateUserById(user);
         if(userResult) {
             result.success = true;
             result.code = 200;
@@ -182,4 +182,25 @@ module.exports = {
             ctx.body = result;
         }
     },
+
+    async updateUserById(ctx) {
+        "use strict";
+        let result = {
+            success: false,
+            message: '',
+            code: '',
+            data: null
+        };
+        let queryString = ctx.request.query;
+        let userResult = await userInfoService.findUserById(queryString.id);
+        if(userResult) {
+            result.success = true;
+            result.code = 200;
+            result.data = userResult
+        } else {
+            result.message = "查询用单个户信息失败！";
+            result.code = "FIND_ONE_USER_ERROR"
+        }
+        ctx.body = result
+    }
 };

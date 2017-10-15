@@ -84,7 +84,18 @@ const user = {
         } else {
             return null
         }
+    },
+
+    async updateUserById(user) {
+        "use strict";
+        let result = await dbUtils.update('userInfo', user);
+        if(result && result.affectedRows === 1) {
+            return true
+        } else {
+            return false
+        }
     }
+
 };
 
 module.exports = user;

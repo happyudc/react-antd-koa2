@@ -97,13 +97,23 @@ let insert = function (table, values) {
 };
 
 /**
+ * 修改数据
+ * @param table
+ * @param values
+ */
+let update = function (table, values) {
+    let _sql = "update ?? set ? where id = ?";
+    return query(_sql, [table, values])
+}
+
+/**
  * 删除数据
  * @param table
  * @param value
  */
 let deleteData = function (table, value) {
-    let _sql = "delete from ?? where id = ?";
-    return query(_sql, [table, value])
+    let _sql = "delete from ?? set ? where id = ?";
+    return query(_sql, [table, value, value.id])
 };
 
 
@@ -116,5 +126,6 @@ module.exports = {
     insert,
     selectByPage,
     count,
-    deleteData
+    deleteData,
+    update
 };

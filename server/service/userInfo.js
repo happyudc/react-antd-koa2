@@ -58,6 +58,12 @@ const user = {
         "use strict";
         let result = await userModel.findUserById(id);
         return result
+    },
+
+    async updateUserById(user) {
+        "use strict";
+        let result = await userModel.updateUserById(user);
+        return result
     }
 
 
