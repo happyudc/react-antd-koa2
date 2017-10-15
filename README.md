@@ -1,2 +1,2 @@
 # react-antd-koa2
-react antd koa2 项目实战
+react redux react-router4 antd koa2 项目实战
