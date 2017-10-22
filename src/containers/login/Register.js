@@ -3,6 +3,7 @@
  */
 import 'babel-polyfill'
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 import { Form, Input, Tooltip, Icon, Checkbox, Button, message } from 'antd';
 import { registerApi } from '../../api/login/register'
 const FormItem = Form.Item;
@@ -23,7 +24,8 @@ class Register extends React.Component {
         if(values) {
             let result = await registerApi(values);
             if(result && result.success) {
-                message.success("注册成功！")
+                message.success("注册成功！");
+                this.props.history.push('/login')
             } else {
                 message.error(result.message)
             }
@@ -167,7 +169,7 @@ class Register extends React.Component {
 }
 
 
-export default Form.create()(Register)
+export default withRouter(Form.create()(Register))
 
 
 

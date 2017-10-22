@@ -11,7 +11,7 @@ const user = {
      */
     async findUserByNameAndPwd(userName, password) {
         "use strict";
-        let _sql = "select * from userInfo where username = ? and password = ?";
+        let _sql = "select * from user_info where username = ? and password = ?";
         let result = await dbUtils.query(_sql, [userName, password]);
         if(Array.isArray(result) && result.length > 0) {
             result = result[0];
@@ -38,7 +38,7 @@ const user = {
 
     async selectAllUser() {
         "use strict";
-        let result = await dbUtils.selectAll('userInfo');
+        let result = await dbUtils.selectAll('user_info');
         if(Array.isArray(result) && result.length > 0) {
             return result
         } else {
@@ -58,7 +58,7 @@ const user = {
 
     async getCount() {
         "use strict";
-        let result = await dbUtils.count('userInfo');
+        let result = await dbUtils.count('user_info');
         if(Array.isArray(result) && result.length > 0) {
             return result[0].count
         } else {

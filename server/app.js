@@ -40,7 +40,10 @@ const sessionMysqlConfig = {
 
 app.use(session({
     key: 'USER_SID',
-    store: new MysqlStore(sessionMysqlConfig)
+    store: new MysqlStore(sessionMysqlConfig),
+    cookie: {
+        maxAge: 1000 * 60
+    }
 }));
 
 app.use(koaLogger());

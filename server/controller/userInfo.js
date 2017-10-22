@@ -31,19 +31,19 @@ module.exports = {
             session.userName = userResult.username
         }
         // 将用户名保存到cookies中
-        if (result.success && formData.remember) {
-            ctx.cookies.set(
-                'USER_CID',
-                userResult.username,
-                {
-                    domain: 'localhost',
-                    path: '/',
-                    maxAge: 60 * 60 * 1000 * 24,
-                    httpOnly: false,
-                    overwrite: false
-                }
-            )
-        }
+        // if (result.success && formData.remember) {
+        //     ctx.cookies.set(
+        //         'USER_CID',
+        //         userResult.username,
+        //         {
+        //             domain: 'localhost',
+        //             path: '/',
+        //             maxAge: 60 * 60 * 1000 * 24,
+        //             httpOnly: false,
+        //             overwrite: false
+        //         }
+        //     )
+        // }
         ctx.body = result
     },
 
@@ -103,7 +103,7 @@ module.exports = {
             data: null
         };
         let reqData = ctx.request.body;
-        let begin = reqData.begin || 1, offset = reqData.offset || 5;
+        let begin = reqData.begin || 0, offset = reqData.offset || 5;
         let userResult = await userInfoService.findUserByPage(parseInt(begin), parseInt(offset));
         if(userResult.data) {
             result.success = true;
@@ -191,14 +191,14 @@ module.exports = {
             code: '',
             data: null
         };
-        let queryString = ctx.request.query;
-        let userResult = await userInfoService.findUserById(queryString.id);
+        let user = ctx.request.body;
+        let userResult = await userInfoService.updateUserById(user);
         if(userResult) {
             result.success = true;
             result.code = 200;
             result.data = userResult
         } else {
-            result.message = "查询用单个户信息失败！";
+            result.message = "修改用户信息失败！";
             result.code = "FIND_ONE_USER_ERROR"
         }
         ctx.body = result

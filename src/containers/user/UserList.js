@@ -3,9 +3,9 @@
  */
 import React from 'react'
 import { Table, Popconfirm, message, Button } from 'antd'
-import { userPageApi, userDeleteApi } from '../../api/user/userList'
+import { userPageApi, userDeleteApi } from '../../api/user/user'
+import dateFormat from '../../utils/dateFormat'
 import EditUser from './EditUser'
-// import { dateFormat } from '../../utils/dateFormat'
 class UserList extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -48,6 +48,7 @@ class UserList extends React.PureComponent {
         let dataSource = [];
         Array.isArray(data) && data.length > 0 && data.map((user, index) =>{
             user.key = index;
+            user.create_time = dateFormat(new Date(user.create_time), 'yyyy-MM-dd hh:mm:ss')
             dataSource.push(user)
         });
         return dataSource
@@ -64,7 +65,7 @@ class UserList extends React.PureComponent {
         let result = await userDeleteApi(id);
         if(result && result.success) {
             message.success('删除用户成功！');
-            this.getUserList(1,5)
+            this.getUserList(0,5)
         }else {
             message.error(result.message)
         }
@@ -95,6 +96,10 @@ class UserList extends React.PureComponent {
             title: 'Name',
             dataIndex: 'username',
             key: 'name'
+        }, {
+            title: 'Password',
+            dataIndex: 'password',
+            key: 'password'
         }, {
             title: 'Email',
             dataIndex: 'email',
@@ -128,8 +133,9 @@ class UserList extends React.PureComponent {
                        pagination={this.state.pagination} onChange={this.handlePaginationChange} loading={false}/>
                 {this.state.visible
                     ? <EditUser title="修改用户信息"
-                                user={this.state.updateData}
+                                getUserList={this.getUserList}
                                 handleUpdateCancel={this.handleUpdateCancel}
+                                user={this.state.updateData}
                                 visible={this.state.visible}/>
                     : ''
                 }

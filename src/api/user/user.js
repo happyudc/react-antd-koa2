@@ -33,4 +33,13 @@ const userDeleteApi = async (id) => {
     return result
 };
 
-export { userListApi, userPageApi, userDeleteApi }
+const userUpdateAPi = async (user) => {
+    "use strict";
+    let result = Request.post({
+        url: '/api/user/update.json',
+        data: user
+    })
+    return result
+};
+
+export { userListApi, userPageApi, userDeleteApi, userUpdateAPi }

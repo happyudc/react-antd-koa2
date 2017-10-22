@@ -103,7 +103,7 @@ let insert = function (table, values) {
  */
 let update = function (table, values) {
     let _sql = "update ?? set ? where id = ?";
-    return query(_sql, [table, values])
+    return query(_sql, [table, values, values.id])
 }
 
 /**
@@ -112,8 +112,8 @@ let update = function (table, values) {
  * @param value
  */
 let deleteData = function (table, value) {
-    let _sql = "delete from ?? set ? where id = ?";
-    return query(_sql, [table, value, value.id])
+    let _sql = "delete from ?? where id = ?";
+    return query(_sql, [table, value])
 };
 
 

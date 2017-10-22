@@ -23,7 +23,7 @@ const isLogin = () => localStorage.getItem('isLogin');
  * 为了安全起见，还需要在后端进行是否登陆验证
  * @returns {Promise.<void>}
  */
-const requestBankEndAuth = async function () {
+const requestBankEndAuth = async function () { // 返回的是一个Promise对象
     let result = await authApi();
     result && result.isLogin ? '' : <Redirect to="/login"/>
 };

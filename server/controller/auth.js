@@ -5,6 +5,7 @@ module.exports = {
     async auth(ctx) {
         "use strict";
         let session = ctx.session;
+        console.log("auth: ",session);
         if(session && session.isLogin && session.userName) {
             ctx.body = {isLogin: true}
         } else {
