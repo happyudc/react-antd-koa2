@@ -3,6 +3,7 @@
  */
 import "babel-polyfill"
 import React from 'react'
+import { connect } from 'react-redux'
 import {
     BrowserRouter as Router,
     Route,
@@ -42,7 +43,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     return(
         <Route
             {...rest}
-            render={ props => isLogin() ? <Component {...props}/> : <Redirect to="/login"/>}
+            render={ props => isLogin() && rest.authenticated ? <Component {...props}/> : <Redirect to="/login"/>}
         />
     )
 };
@@ -55,8 +56,8 @@ class RouterMap extends React.PureComponent {
                     <Route exact path="/" component={Login}/>
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/register" component={Register}/>
-                    <PrivateRoute exact path="/index" component={Welcome}/>
-                    <PrivateRoute path="/user" component={Home}/>
+                    <PrivateRoute exact path="/index" authenticated={this.props.authenticated} component={Welcome}/>
+                    <PrivateRoute path="/user" authenticated={this.props.authenticated} component={Home}/>
                     <Route component={NoMatch}/>
                 </Switch>
             </Router>
@@ -64,4 +65,9 @@ class RouterMap extends React.PureComponent {
     }
 }
 
-export default RouterMap
+const mapStateToProps = (state) => {
+    return {
+        authenticated: state.userReducer.authenticated
+    }
+}
+export default connect(mapStateToProps)(RouterMap)

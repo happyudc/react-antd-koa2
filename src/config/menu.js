@@ -9,21 +9,21 @@ const menuConfig = [
         icon: 'user'
     },
     {
-        key: 'product',
-        path: '/product/list',
-        name: '商品管理',
-        icon: 'calendar'
-    },
-    {
-        key: 'order',
-        path: '/order',
-        name: '订单管理',
+        key: 'blog',
+        path: '/blog',
+        name: '博客管理',
         icon: 'pay-circle',
         children: [
             {
-                key: 'finishedOrder',
-                path: '/order/finished',
-                name: '已完成订单',
+                key: 'blogList',
+                path: '/blog/list',
+                name: '博客列表',
+                icon: 'calendar'
+            },
+            {
+                key: 'tag',
+                path: '/blog/tag',
+                name: '博客标签',
                 icon: 'calendar'
             }
         ]

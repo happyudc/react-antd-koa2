@@ -10,7 +10,6 @@ class EditUser extends React.PureComponent {
         super(props);
         this.state = {
             confirmLoading: false,
-            visible: this.props.visible,
             user: this.props.user
         };
         this.handleSubmit = this.handleSubmit.bind(this)
