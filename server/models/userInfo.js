@@ -28,7 +28,7 @@ const user = {
      */
     async insertUserInfo(userInfo) {
         "use strict";
-        let result = await dbUtils.insert('userInfo', userInfo);
+        let result = await dbUtils.insert('user_info', userInfo);
         if(result && result.affectedRows === 1) {
             return true
         } else {
@@ -48,7 +48,7 @@ const user = {
 
     async selectUserByPage(begin, offset) {
         "use strict";
-        let result = await dbUtils.selectByPage('userInfo', begin, offset);
+        let result = await dbUtils.selectByPage('user_info', begin, offset);
         if(Array.isArray(result) && result.length > 0) {
             return result
         } else {
@@ -68,7 +68,7 @@ const user = {
 
     async deleteById(id) {
         "use strict";
-        let result = await dbUtils.deleteData('userInfo', id);
+        let result = await dbUtils.deleteData('user_info', id);
         if(result && result.affectedRows === 1) {
             return true
         } else {
@@ -78,7 +78,7 @@ const user = {
 
     async findUserById(id) {
         "use strict";
-        let result = await dbUtils.selectById('userInfo', id);
+        let result = await dbUtils.selectById('user_info', id);
         if(Array.isArray(result) && result.length > 0) {
             return result[0]
         } else {
@@ -88,7 +88,7 @@ const user = {
 
     async updateUserById(user) {
         "use strict";
-        let result = await dbUtils.update('userInfo', user);
+        let result = await dbUtils.update('user_info', user);
         if(result && result.affectedRows === 1) {
             return true
         } else {
